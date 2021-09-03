@@ -17,7 +17,13 @@
 						</ul>
                         <hr>
 						<a href="#" class="uk-button uk-button-secondary uk-width-1-1">CHECKOUT</a>
-			 <NuxtLink to="/login" id="login" class="uk-button uk-button-primary uk-border-rounded uk-align-center">Login</NuxtLink>
+				 <ul v-if="isUserLoggedIn" class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{ multiple: true }">
+			     <li><span class="uk-margin-small-right" data-uk-icon="icon: user"></span>Welcome{{ getUserName }}</li>
+				 </ul>
+				 <ul v-else class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{ multiple: true }">
+				 <NuxtLink to="/login" id="login" class="uk-button uk-button-primary uk-border-rounded uk-align-center">Login</NuxtLink>
+			    <NuxtLink to="/login" id="login" class="uk-button uk-button-primary uk-border-rounded uk-align-center">Login</NuxtLink>
+				</ul>
 			</div>
 		</div>
 		<!-- /OFFCANVAS -->

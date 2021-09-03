@@ -38,7 +38,7 @@
 									<h4 class="uk-margin-small-bottom uk-margin-remove-adjacent">Account</h4>
 								    <hr>
                                     <ul v-if="isUserLoggedIn" class="uk-list uk-list-space">
-									 <li><span class="uk-margin-small-right" data-uk-icon="icon: user"></span>Welcome {{ getUserName }}</li>
+									 <li><span class="uk-margin-small-right" data-uk-icon="icon: user"></span>Welcome{{ getUserName }}</li>
 								   
 									  <li><span class="uk-margin-small-right" data-uk-icon="icon: cog"></span>Account</li>
 									   <li><span class="uk-margin-small-right" data-uk-icon="icon: mail"></span>Messsages</li>
