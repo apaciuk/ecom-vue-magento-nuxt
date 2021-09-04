@@ -26,10 +26,10 @@
 								</div>
 							</div>
 							<div class="uk-margin">
-								<button class="uk-button uk-button-primary uk-button-large uk-width-1-1">Sign Up</button>
+								<button class="uk-button uk-button-secondary uk-button-large uk-width-1-1">Sign Up</button>
 							</div>
 							<div class="uk-text-small uk-text-center">
-								Already have an account? <a href="#">Log In</a>
+               	Already have an account? <NuxtLink to="login">Log In</NuxtLink>
 							</div>
 						</form>
 					</div>

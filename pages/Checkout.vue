@@ -1,12 +1,6 @@
 <template>
-	<div :class="[ openModal ? 'is-active' : '', 'modal' ]">
-		<div class="modal-background"></div>
 		<div class="modal-card">
-			<header class="modal-card-head">
-				<p class="modal-card-title">{{ modalTitle }}</p>
-				<button class="delete" aria-label="close" @click="closeModal(false)"></button>
-			</header>
-			<section class="modal-card-body">
+		 <section class="modal-card-body">
 				<div v-if="!isCheckoutSection">
 					<div class="box" v-for="product in products" :key="product.id">
 						<button class="is-pulled-right button is-info is-inverted" @click="removeFromCart(product.id)">{{ removeLabel }}</button>
@@ -26,7 +20,6 @@
 				<button v-if="isCheckoutSection" class="button is-success" @click="closeModal(true)">{{ closeLabel }}</button>
 			</footer>
 		</div>
-	</div>
 </template>
 
 <script>

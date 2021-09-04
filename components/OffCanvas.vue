@@ -9,7 +9,7 @@
 			   </ul>
 				<h4>Information</h4>
 				<p>eCommerce using UIKit 3, Nuxt Js and Vue JS, with Off Canvas and other UIKit components.</p>
-				<VmSearch></VmSearch>
+				<Search />
                 		<h4>Cart</h4>
                         <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{ multiple: true }">
 								
@@ -22,19 +22,16 @@
 				 </ul>
 				 <ul v-else class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{ multiple: true }">
 				 <NuxtLink to="/login" id="login" class="uk-button uk-button-primary uk-border-rounded uk-align-center">Login</NuxtLink>
-			    <NuxtLink to="/login" id="login" class="uk-button uk-button-primary uk-border-rounded uk-align-center">Login</NuxtLink>
+				  <hr>
+			    <NuxtLink to="/login" id="login" class="uk-button uk-button-primary uk-border-rounded uk-align-center">Sign Up</NuxtLink>
 				</ul>
 			</div>
 		</div>
 		<!-- /OFFCANVAS -->
 </template>
 <script>
-import VmSearch from '../search/Search';
 export default {
-name: 'OffCanvas',
-components: {
-      VmSearch
-},    
+name: 'OffCanvas',    
 }
 </script>
 

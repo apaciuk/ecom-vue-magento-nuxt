@@ -6,7 +6,7 @@ module.exports = {
   router: {
     base: "/"
   },
-
+  components: true,
   /*
    ** Headers of the page
    */

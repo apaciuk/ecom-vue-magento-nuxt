@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import VmProductsList from '@/components/Products';
-import { getByTitle } from '@/assets/filters';
+//import VmProductsList from '@/components/Products';
+//import { getByTitle } from '@/assets/filters';
 
 export default {
 	name: 'user-wishlist',
@@ -26,7 +26,7 @@ export default {
     }
   },
 
-  components: { VmProductsList },
+ // components: { VmProductsList },
 
   computed: {
     productsInWishlist () {

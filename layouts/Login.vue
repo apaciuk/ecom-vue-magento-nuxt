@@ -1,6 +1,4 @@
 <template>
-  <div :class="[ openModal ? 'is-active' : '', 'modal' ]">
-    <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head">
           <p v-if="!isUserLoggedIn" class="modal-card-title">{{ modalTitle }}</p>
@@ -64,7 +62,6 @@
         </footer>
       </form>
     </div>
-  </div>
 </template>
 
 <script>

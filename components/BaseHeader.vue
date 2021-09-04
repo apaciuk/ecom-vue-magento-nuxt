@@ -18,7 +18,7 @@
 							<li class="uk-visible@s"><NuxtLink to="/contact">New</NuxtLink></li>
 								<li class="uk-visible@s"><NuxtLink to="/contact">Journal</NuxtLink></li>
 							<li class="uk-visible@s"><NuxtLink to="/contact">Contact</NuxtLink></li>
-                           <li class="uk-visible@s"> <VmSearch></VmSearch></li>
+                           <li class="uk-visible@s"> <Search /></li>
 				            <li class="uk-visible@s">
 								<a href="#" data-uk-icon="icon:cart"></a>
 								<div class="drop-nav uk-dropdown" data-uk-dropdown="mode: click; offset: 20;animation: uk-animation-slide-bottom-small; duration: 150">
@@ -28,7 +28,7 @@
 									<li><img src="purse.jpg" width="60" /><span class="uk-margin-small-left"></span>Mens Purse £240<span class="uk-margin-small-left" data-uk-icon="icon: trash"></span><span class="uk-margin-small-left" data-uk-icon="icon: pencil"></span></li>
 									</ul>
                                     <hr>
-									<a href="#" class="uk-button uk-button-secondary uk-width-1-1">CHECKOUT</a>
+									<NuxtLink to="checkout" class="uk-button uk-button-secondary uk-width-1-1">CHECKOUT</NuxtLink>
 									<hr>
 									</div>
 							     </li>
@@ -45,7 +45,7 @@
 									  <li ><a href="#" class="uk-button uk-button-secondary uk-width-1-1">Log Out</a></li>
 									 </ul>
 									  <ul v-else class="uk-list uk-list-space">
-									  <li ><a href="#" class="uk-button uk-button-secondary uk-width-1-1">Sign Up</a></li>
+									  <li ><NuxtLink to="login" class="uk-button uk-button-secondary uk-width-1-1">Sign Up</NuxtLink></li>
                                      </ul>
 									<hr>
 								</div>
@@ -72,14 +72,14 @@
 					</div>
 				</div>
 			</div>
-                 <OffCanvas />
+         <OffCanvas />
 		</header>
    
      <!--/HEADER-->
 </template>
 <script>
-import VmSearch from '../search/Search';
-import OffCanvas from '@/components/header/OffCanvas';
+
+
 
 
 export default {
@@ -87,13 +87,10 @@ name: 'Header',
  data () {
       return {
        isCheckoutActive: false,
-       isMenuOpen: false
+       isMenuOpen: false,
+	   isUserLoggedIn: false
       }
     },
-components: {
-      VmSearch, 
-      OffCanvas
-},
   computed: {
       numProductsAdded () {
         return this.$store.getters.productsAdded.length;
@@ -103,7 +100,11 @@ components: {
     methods: {
       showCheckoutModal () {
         this.$store.commit('showCheckoutModal', true);
-      }
+      },
+	  isUserLoggedIn() {
+		  
+	  }
+	 
    }
 }
 </script>
