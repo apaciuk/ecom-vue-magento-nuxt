@@ -1,111 +1,113 @@
 <template>
-		<div class="modal-card">
-		 <section class="modal-card-body">
-				<div v-if="!isCheckoutSection">
-					<div class="box" v-for="product in products" :key="product.id">
-						<button class="is-pulled-right button is-info is-inverted" @click="removeFromCart(product.id)">{{ removeLabel }}</button>
-						<p>{{ product.title }}  {{ product.quantity > 0 ?  ` - Quantity: ${product.quantity}` : ''}}</p>
-						<p>{{ product.price }} &euro;</p>
-					</div>
-					<div v-if="products.length === 0">
-						<p>{{ cartEmptyLabel }}</p>
-					</div>
-				</div>
-				<div v-if="isCheckoutSection">
-					<p>You bought it :-)</p>
-				</div>
-			</section>
-			<footer class="modal-card-foot">
-				<button v-show="products.length > 0 && !isCheckoutSection" class="button is-success" @click="onNextBtn">{{ buyLabel }}</button>
-				<button v-if="isCheckoutSection" class="button is-success" @click="closeModal(true)">{{ closeLabel }}</button>
-			</footer>
-		</div>
+  <div id="checkout">
+    <div class="checkout">
+      <div class="checkout__main">
+        <SfSteps
+          v-if="!isThankYou"
+          :active="currentStepIndex"
+          :class="{ 'checkout__steps': true }"
+          @change="handleStepClick"
+        >
+          <SfStep
+            v-for="(step, key) in STEPS"
+            :key="key"
+            :name="step"
+          >
+            <nuxt-child />
+          </SfStep>
+        </SfSteps>
+        <nuxt-child v-else />
+      </div>
+      <div
+        v-if="!isThankYou"
+        class="checkout__aside desktop-only"
+      >
+        <transition name="fade">
+          <CartPreview key="order-summary" />
+        </transition>
+      </div>
+    </div>
+  </div>
 </template>
+<script lang="ts">
+import { SfSteps } from '@storefront-ui/vue';
+import { computed, defineComponent, ref } from '@vue/composition-api';
+import CartPreview from '~/components/Checkout/CartPreview.vue';
+import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 
-<script>
-export default {
-	name: 'checkout',
-    
-	data () {
-		return {
-			modalTitle: 'Checkout',
-			removeLabel: 'Remove from cart',
-			cartEmptyLabel: 'Your cart is empty',
-			closeLabel: 'Close',
-			isCheckoutSection: false
-		}
-	},
+export default defineComponent({
+  name: 'Checkout',
+  components: {
+    SfSteps,
+    CartPreview,
+  },
+  setup() {
+    const { route, router } = useVueRouter();
+    const currentStep = computed(() => route.path.split('/').pop());
+    const STEPS = ref({
+      'user-account': 'User Account',
+      shipping: 'Shipping',
+      billing: 'Billing',
+      payment: 'Payment',
+    });
+    const currentStepIndex = computed(() => Object.keys(STEPS.value)
+      .indexOf(currentStep.value));
+    const isThankYou = computed(() => currentStep.value === 'thank-you');
 
-	computed: {
-			products () {
-				return this.$store.getters.productsAdded;
-			},
-			openModal () {
-				if (this.$store.getters.isCheckoutModalOpen) {
-					return true;
-				} else {
-					return false;
-				}
-			},
-			buyLabel () {
-				let totalProducts = this.products.length,
-						productsAdded = this.$store.getters.productsAdded,
-						pricesArray = [],
-						productLabel = '',
-						finalPrice = '',
-						quantity = 1;
+    const handleStepClick = (stepIndex) => {
+      const key = Object.keys(STEPS.value)[stepIndex];
+      router.push(`/checkout/${key}`);
+    };
 
-				productsAdded.forEach(product => {
-
-					if (product.quantity >= 1) {
-						quantity = product.quantity;
-					}
-
-					pricesArray.push((product.price * quantity)); // get the price of every product added and multiply quantity
-				});
-
-				finalPrice = pricesArray.reduce((a, b) => a + b, 0); // sum the prices
-				
-				if (totalProducts > 1) { // set plural or singular
-					productLabel = 'products';
-				} else {
-					productLabel = 'product';
-				}
-				return `Buy ${totalProducts} ${productLabel} at ${finalPrice}€`;
-		},
-		isUserLoggedIn () {
-			return this.$store.getters.isUserLoggedIn;
-		}
-	},
-
-	methods: {
-		closeModal (reloadPage) {
-			this.$store.commit('showCheckoutModal', false);
-
-			if (reloadPage) {
-				window.location.reload();
-			}
-		},
-		removeFromCart (id) {
-			let data = {
-					id: id,
-					status: false
-			}
-			this.$store.commit('removeFromCart', id);
-			this.$store.commit('setAddedBtn', data);
-		},
-		onNextBtn () {
-			if (this.isUserLoggedIn) {
-				this.isCheckoutSection = true;
-			} else {
-				this.$store.commit('showCheckoutModal', false);
-				this.$store.commit('showLoginModal', true);
-			}
-		},
-		onPrevBtn () {
-			this.isCheckoutSection = false;
-		}
-	}
-}
+    return {
+      handleStepClick,
+      STEPS,
+      currentStepIndex,
+      isThankYou,
+      currentStep,
+    };
+  },
+});
 </script>
 
+<style lang="scss" scoped>
+#checkout {
+  box-sizing: border-box;
+  @include for-desktop {
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+}
+
+.checkout {
+  @include for-desktop {
+    display: flex;
+  }
+
+  &__main {
+    @include for-desktop {
+      flex: 1;
+      padding: var(--spacer-xl) 0 0 0;
+    }
+  }
+
+  &__aside {
+    @include for-desktop {
+      flex: 0 0 25.5rem;
+      margin: 0 0 0 4.25rem;
+    }
+  }
+
+  &__steps {
+    --steps-content-padding: 0 var(--spacer-base);
+    @include for-desktop {
+      --steps-content-padding: 0;
+    }
+
+    &-auth::v-deep .sf-steps__step:first-child {
+      --steps-step-color: #e8e4e4;
+    }
+  }
+}
+
+</style>
