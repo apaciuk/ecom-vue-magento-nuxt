@@ -1,9 +1,9 @@
 <template>
-  <div class="columns is-centered is-multiline">
-    <div class="card column is-one-quarter" v-for="product in products" :key="product.id">
-      <Products :product="product" />
+<div class="uk-grid-medium uk-width-1-1 uk-text-center uk-margin-large-top" uk-grid>
+     <div v-for="product in products" :key="product.id">
+      <Products2 :product="product" />
     </div>
-    <div class="section" v-if="products.length === 0">
+    <div v-if="products.length === 0">
       <p>{{ noProductLabel }}</p>
     </div>
   </div>
@@ -14,9 +14,6 @@ import { getByTitle } from '@/assets/filters';
 
 export default {
   name: 'productsList',
-  
-  components: { VmProducts },
-  
   data () {
     return {
       id: '',
