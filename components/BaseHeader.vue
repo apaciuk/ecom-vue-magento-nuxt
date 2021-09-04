@@ -74,21 +74,16 @@
 			</div>
          <OffCanvas />
 		</header>
-   
-     <!--/HEADER-->
+    <!--/HEADER-->
 </template>
 <script>
-
-
-
-
 export default {
 name: 'Header',
  data () {
       return {
        isCheckoutActive: false,
        isMenuOpen: false,
-	   isUserLoggedIn: false
+	   //isUserLoggedIn: false
       }
     },
   computed: {

@@ -26,10 +26,11 @@
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "babel-runtime": "^6.26.0",
-    "uikit": "^3.6.21",
     "nuxt": "^2.15.7",
+    "uikit": "^3.6.21",
     "vue": "^2.6.14",
     "vue-router": "^3.5.2",
+    "vue-slick-carousel": "^1.0.6",
     "vuex": "^3.6.2"
   },
   "devDependencies": {
